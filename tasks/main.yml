@@ -5,6 +5,14 @@
   with_items: "{{jupyter_pkgs}}"
   tags: jupyter
 
+- name: easy install for pip
+  easy_install: executable="/usr/bin/easy_install" name=pip
+  tags: jupyter
+
+- name: easy install for pip3
+  easy_install: executable="/usr/bin/easy_install3" name=pip
+  tags: jupyter
+
 - name: install npm package configurable-http-proxy
   npm: name=configurable-http-proxy global=yes state=present
   tags: jupyter
@@ -30,7 +38,7 @@
   tags: jupyter
 
 - name: install jupyter, jupyterhub, sudospawner via pip3
-  pip: executable=pip3 requirements=/root/jupyterhub_requirements.txt extra_args='--upgrade'
+  pip: executable=pip3 requirements="/root/jupyterhub_requirements.txt" extra_args='--upgrade'
   tags: jupyter
 
 - name: configure jupyterhub
