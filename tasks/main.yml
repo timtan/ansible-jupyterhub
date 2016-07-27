@@ -22,7 +22,7 @@
   tags: jupyter
 
 - name: add jupyter user
-  user: name=jupyter state=present groups=jupyter,shadow password="$6$c95tRbL34V5wVrA6$5iccT6r3LwWiWNpNyHmnKW4JhLbBfbva/wAUWwkD9Ks2dT/LnrYLx2Xs2lzQSYw.Cp7dvKS8VudQ7jh/ljBYQ."
+  user: name=jupyter state=present groups=jupyter,shadow password="{{jupyterpw}}"
   tags: jupyter
 
 - name: create jupyterhub folder in etc
@@ -60,6 +60,15 @@
 - name: Ensure hostname is in /etc/hosts file
   lineinfile: dest=/etc/hosts regexp="{{ansible_hostname}}" line="{{ansible_default_ipv4.address}}  {{ansible_hostname}}"
   tags: jupyter
+  
+- name: create self-signed SSL cert
+  command: openssl req -new -nodes -x509 -subj "/C=NoCountry/ST=NoState/L=NoCity/O=IT/CN=${ansible_fqdn}" -days 3650 -keyout /etc/jupyterhub/server.key -out /etc/jupyterhub/server.crt -extensions v3_ca creates=/etc/jupyterhub/server.crt
+
+- name: set jupyterhub certificate
+  lineinfile: dest=/etc/jupyterhub/jupyterhub_config.py line="c.JupyterHub.ssl_cert = '/etc/jupyterhub/server.crt'"
+
+- name: set jupyterhub certificate
+  lineinfile: dest=/etc/jupyterhub/jupyterhub_config.py line="c.JupyterHub.ssl_key = '/etc/jupyterhub/server.key'"
 
 - name: start jupyterhub
   service: name=jupyterhub enabled=yes state=started
