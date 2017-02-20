@@ -8,12 +8,12 @@ JupyterHub is installed as per instructions, with node.js and configurable-http-
 
 To add a user, login to the server as root:
 
-  adduser <username>
-  addgroup <username> jupyter
+    adduser <username>
+    addgroup <username> jupyter
 
 Then connect via web browser
 
-http://<ip address>:8000
+    http://<ip address>:8000
 
 For testing use this:
 
