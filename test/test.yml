@@ -1,4 +1,0 @@
----
-- hosts: jupyterhub
-  roles:
-    - ansible-jupyterhub
