@@ -26,7 +26,7 @@ case "$1" in
     echo "Starting jupyterhub..."
     #start-stop-daemon --start --chuid $USER --chdir $HOME --exec $DAEMON -- $OPTIONS
     cd /etc/jupyterhub
-    sudo -u jupyter /usr/local/bin/jupyterhub --JupyterHub.spawner_class=sudospawner.SudoSpawner &
+    sudo -u $USER $DAEMON --JupyterHub.spawner_class=sudospawner.SudoSpawner &
     ;;
   stop)
     echo "Stopping jupyterhub..."
