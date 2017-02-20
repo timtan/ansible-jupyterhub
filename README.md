@@ -14,3 +14,9 @@ addgroup <username> jupyter
 Then connect via web browser
 
 http://<ip address>:8000
+
+For testing use this:
+
+    ansible-playbook ansible-jupyterhub/test/test.yml -i ansible-jupyterhub/test/hosts
+
+And configure jupyterhub your ssh/config file.
