@@ -25,13 +25,13 @@ case "$1" in
   start)
     echo "Starting jupyterhub..."
     #start-stop-daemon --start --chuid $USER --chdir $HOME --exec $DAEMON -- $OPTIONS
-    cd /etc/jupyterhub
+    cd $HOME
     sudo -u $USER $DAEMON --JupyterHub.spawner_class=sudospawner.SudoSpawner &
     ;;
   stop)
     echo "Stopping jupyterhub..."
     #start-stop-daemon --stop --quiet --exec $DAEMON --oknodo --signal 1
-    pkill jupyter
+    pkill $DAEMON
     ;;
   *)
     echo "Usage: $0 {start|stop}"
