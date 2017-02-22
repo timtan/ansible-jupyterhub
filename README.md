@@ -20,7 +20,18 @@ To run, install ansible, configure your ssh/config file for a host "jupyterhub" 
 
     ansible-playbook ansible-jupyterhub/test/test.yml -i ansible-jupyterhub/test/hosts
 
-Note: During testing on linode I ran into IPV6 issues. Nothing to do with jupyterhub
-or ansible, but apt wouldn't work with IPV6 enabled on Xenial. I disabled IPV6 according
-to these instructions and apt (and ansible) began to work. 
+Note: During testing on linode I ran into IPV6 issues. Nothing to do with
+jupyterhub or ansible, but apt wouldn't work with IPV6 enabled on Xenial. I
+disabled IPV6 according to these instructions and apt (and ansible) began to
+work. If it hangs on installing packages this is probably your issue.
+
 http://www.techrepublic.com/article/how-to-disable-ipv6-on-linux/
+
+Also on Ubuntu 16.10 I had to do a "apt install python-minimal" to get python
+2 for ansible. 
+
+When everything has finished you should be able to point your browser at:
+
+http://ip.add:8000
+
+And then login as jupyter with the password you entered at the start.

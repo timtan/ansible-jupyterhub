@@ -1,6 +1,9 @@
 ---
 - hosts: jupyterhub
 
+  vars:
+    nossl: False
+
   vars_prompt:
     - name: "jupyterpw"
       prompt: "Enter a password for the Jupyter user"

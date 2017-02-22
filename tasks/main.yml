@@ -58,15 +58,15 @@
   tags: jupyter
 
 - name: set IP address
-  lineinfile: dest=/etc/jupyterhub/jupyterhub_config.py line="c.JupyterHub.hub_ip = {{ansible_eth0.ipv4.address}}"
+  lineinfile: dest=/etc/jupyterhub/jupyterhub_config.py line="c.JupyterHub.hub_ip = '{{ansible_eth0.ipv4.address}}'"
   tags: jupyter
 
 - name: set IP address
-  lineinfile: dest=/etc/jupyterhub/jupyterhub_config.py line="c.JupyterHub.ip = {{ansible_eth0.ipv4.address}}"
+  lineinfile: dest=/etc/jupyterhub/jupyterhub_config.py line="c.JupyterHub.ip = '{{ansible_eth0.ipv4.address}}'"
   tags: jupyter
 
 - name: set IP address
-  lineinfile: dest=/etc/jupyterhub/jupyterhub_config.py line="c.JupyterHub.proxy_api_ip = {{ansible_eth0.ipv4.address}}"
+  lineinfile: dest=/etc/jupyterhub/jupyterhub_config.py line="c.JupyterHub.proxy_api_ip = '{{ansible_eth0.ipv4.address}}'"
   tags: jupyter
 
 - name: Check to see if config file exists
@@ -89,13 +89,21 @@
 
 - name: create self-signed SSL cert
   command: openssl req -new -nodes -x509 -subj "/C={{ssl_country}}/ST={{ssl_state}}/L={{ssl_city}}/O={{ssl_org}}/CN=${ansible_fqdn}" -days 3650 -keyout /etc/jupyterhub/server.key -out /etc/jupyterhub/server.crt -extensions v3_ca creates=/etc/jupyterhub/server.crt
-  when: cert_exists.stat.exists == False
+  when: 
+    - nossl == False
+    - cert_exists.stat.exists == False
 
 - name: set jupyterhub certificate
   lineinfile: dest=/etc/jupyterhub/jupyterhub_config.py line="c.JupyterHub.ssl_cert = '/etc/jupyterhub/server.crt'"
+  when: nossl == False
 
 - name: set jupyterhub certificate
   lineinfile: dest=/etc/jupyterhub/jupyterhub_config.py line="c.JupyterHub.ssl_key = '/etc/jupyterhub/server.key'"
+  when: nossl == False
+
+- name: remove ssl setting
+  lineinfile: dest=/etc/jupyterhub/jupyterhub_config.py line="c.JupyterHub.confirm_no_ssl = True"
+  when: nossl == True
 
 - name: start jupyterhub
   service: name=jupyterhub enabled=yes state=started
