@@ -1,5 +1,5 @@
 ---
-- hosts: jupyterhub
+- hosts: all
 
   vars_prompt:
     - name: "jupyterpw"
