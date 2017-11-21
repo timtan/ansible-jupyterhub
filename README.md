@@ -16,10 +16,11 @@ Then connect via web browser
 
     http://<ip address>:8000
 
-To run, install ansible, configure your ssh/config file for a host "jupyterhub" and:
+To run, install ansible, configure your ssh/config file for a host "jupyterhub" and use one of the following:
 
-    ansible-playbook ansible-jupyterhub/test/test.yml -i ansible-jupyterhub/test/hosts
-
+    ansible-playbook ansible-jupyterhub/playbook/no_ssl.yml -i <hostfile>
+    ansible-playbook ansible-jupyterhub/playbook/with_ssl.yml -i <hostfile>
+ 
 Note: During testing on linode I ran into IPV6 issues. Nothing to do with
 jupyterhub or ansible, but apt wouldn't work with IPV6 enabled on Xenial. I
 disabled IPV6 according to these instructions and apt (and ansible) began to
