@@ -12,6 +12,8 @@ To add a user, login to the server as root:
     adduser <username>
     addgroup <username> jupyter
 
+for existed user, you must add the user to jupyter goupr
+
 Then connect via web browser
 
     http://<ip address>:8000
