@@ -46,7 +46,7 @@
   tags: jupyter
 
 - name: install jupyter, jupyterhub, sudospawner via pip3
-  pip: executable=pip3 requirements="/root/jupyterhub_requirements.txt" extra_args='--upgrade'
+  pip: executable=/usr/bin/pip3 requirements="/root/jupyterhub_requirements.txt" extra_args='--upgrade'
   become: yes
   become_method: sudo
   tags: jupyter
