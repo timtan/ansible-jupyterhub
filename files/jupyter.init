@@ -16,7 +16,7 @@
 # Author: Tom White <tom@dynertia.net>
 
 DESC="jupyterhub"
-DAEMON=/usr/bin/env jupyterhub
+DAEMON=/usr/local/bin/jupyterhub
 OPTIONS="--JupyterHub.spawner_class=sudospawner.SudoSpawner"
 HOME=/etc/jupyterhub
 USER=jupyter

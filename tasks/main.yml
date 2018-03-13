@@ -87,6 +87,12 @@
   become_method: sudo
   tags: jupyter
 
+- name: set port
+  lineinfile: dest=/etc/jupyterhub/jupyterhub_config.py line="c.JupyterHub.port = 9000"
+  become: yes
+  become_method: sudo
+  tags: jupyter
+
 - name: install jupyterhub init script
   copy: src=jupyter.init dest=/etc/init.d/jupyterhub mode=755 owner=root group=root
   become: yes
