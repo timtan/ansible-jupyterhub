@@ -51,16 +51,8 @@
   become_method: sudo
   tags: jupyter
 
-- name: Check to see if config file exists
-  stat: path=/etc/jupyterhub/jupyterhub_config.py
-  register: config_exists
-  become: yes
-  become_method: sudo
-  tags: jupyter
-
 - name: configure jupyterhub
-  command: /usr/local/bin/jupyterhub --generate-config chdir=/etc/jupyterhub/ creates=/etc/jupyterhub/jupyterhub_config.py
-  when: config_exists.stat.exists == False
+  command: /usr/bin/env jupyterhub --generate-config chdir=/etc/jupyterhub/ creates=/etc/jupyterhub/jupyterhub_config.py
   become: yes
   become_method: sudo
   tags: jupyter
@@ -91,13 +83,6 @@
 
 - name: set IP address
   lineinfile: dest=/etc/jupyterhub/jupyterhub_config.py line="c.JupyterHub.proxy_api_ip = '0.0.0.0'"
-  become: yes
-  become_method: sudo
-  tags: jupyter
-
-- name: Check to see if config file exists
-  stat: path=/etc/init.d/jupyterhub
-  register: init_exists
   become: yes
   become_method: sudo
   tags: jupyter
